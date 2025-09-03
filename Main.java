@@ -1,50 +1,49 @@
 package oop.lsp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        
+        // Create different bird types
         Moveable penguin = new Penguin();
         Flyable sparrow = new Sparrow();
         Moveable ostrich = new Ostrich();
         Flyable eagle = new Eagle();
 
-        List<Moveable> movingBirds = new ArrayList<>();
-        movingBirds.add(penguin);
-        movingBirds.add(sparrow); 
-        movingBirds.add(ostrich);
-        movingBirds.add(eagle); 
+        System.out.println("Demonstrating LSP with different birds:");
+        System.out.println("========================================");
 
-        System.out.println("All birds moving:");
-        for (Moveable bird : movingBirds) {
-            bird.move(); 
-        }
 
-        
-        List<Flyable> flyingBirds = new ArrayList<>();
-        flyingBirds.add(sparrow);
-        flyingBirds.add(eagle);
+        demonstrateMovement(penguin);
+        demonstrateMovement(sparrow);
+        demonstrateMovement(ostrich);
+        demonstrateMovement(eagle);
 
-        System.out.println("\nFlying birds:");
-        for (Flyable bird : flyingBirds) {
-            bird.move(); 
-            bird.fly(); 
-            System.out.println(); 
-        }
+        System.out.println("Demonstrating flying birds:");
+        System.out.println("===========================");
 
-        demonstrateLSP(sparrow); 
-        demonstrateLSP(eagle); 
+        demonstrateFlying(sparrow);
+        demonstrateFlying(eagle);
+
+        System.out.println("Using Flyable as Moveable (LSP in action):");
+        System.out.println("===========================================");
+        useAsMoveable(sparrow);
+        useAsMoveable(eagle);
     }
 
-    public static void demonstrateLSP(Moveable moveable) {
-        System.out.println("Demonstrating LSP with " + moveable.getClass().getSimpleName());
+    public static void demonstrateMovement(Moveable moveable) {
+        System.out.print(moveable.getClass().getSimpleName() + ": ");
         moveable.move();
+    }
 
-        if (moveable instanceof Flyable) {
-            ((Flyable) moveable).fly();
-        }
-        System.out.println(); 
+    public static void demonstrateFlying(Flyable flyable) {
+        System.out.print(flyable.getClass().getSimpleName() + ": ");
+        flyable.move();
+        System.out.print(flyable.getClass().getSimpleName() + ": ");
+        flyable.fly();
+        System.out.println();
+    }
+
+    public static void useAsMoveable(Moveable moveable) {
+        System.out.print("Using " + moveable.getClass().getSimpleName() + " as Moveable: ");
+        moveable.move();
     }
 }
